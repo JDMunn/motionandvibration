@@ -12,8 +12,14 @@ def index():
     calls[inspect.stack()[0][3]] += 1
     return render_template('index.html'), 200
 
+@app.route("/uploadz", methods=["POST"])
+def uploadz():
+    calls[inspect.stack()[0][3]] += 1
+    files = request.files.getlist('file[]')
+    print (files)
+    return "", 200
 
-@app.route("/cryptopticon/healthz", methods=["GET"])
+@app.route("/healthz", methods=["GET"])
 def healthz():
     calls[inspect.stack()[0][3]] += 1
     return Health(calls) \
@@ -28,6 +34,7 @@ class Health(object):
         return jsonify({
             "requestsServed": {
                 "index": self.calls["index"],
+                "uploadz": self.calls["uploadz"],
                 "healthz": self.calls["healthz"]
             },
             "status": "healthy"

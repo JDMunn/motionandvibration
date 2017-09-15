@@ -8,7 +8,7 @@
 
 #### Setup
 
-    make
+    virtualenv -p python3 env; make 
     
 #### Testing
 
