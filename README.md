@@ -1,2 +1,21 @@
-# motionandvibration
-amareanline all orginal motion and vibration media festival
+# motionandvibration.com 
+
+### requirements
+
+* npm
+* python3
+* virtualenv
+
+#### Setup
+
+    make
+    
+#### Testing
+
+    make check
+   
+
+#### Gunicorn foreground
+
+    make run
+    
