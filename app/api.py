@@ -15,7 +15,7 @@ def index():
 @app.route("/uploadz", methods=["POST"])
 def uploadz():
     calls[inspect.stack()[0][3]] += 1
-    files = request.files.getlist('file[]')
+    files = request.files.getlist('file')
     print (files)
     return "", 200
 
