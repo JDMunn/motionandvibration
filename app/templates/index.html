@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8"/>
         <link rel="stylesheet" href="/css/index.css">
         <script src="/node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="/js/dropzone.js"></script>
         <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
         <link href='/css/material-icons.css' rel="stylesheet">
         <link href="/node_modules/vuetify/dist/vuetify.min.css" rel="stylesheet">
+        {{ dropzone.load() }}
         <title>motion & vibration</title>
     </head>
     <body>
@@ -25,11 +25,7 @@
                         {% endraw %}
                     </v-alert>
                     <v-container fluid>
-                        <form action="/uploadz" class="dropzone">
-                            <div class="fallback">
-                                <input name="file" type="file" multiple />
-                            </div>
-                        </form>
+                        {{ dropzone.create(action_view='uploadz') }}
                     </v-container>
                 </main>
             </v-app>
