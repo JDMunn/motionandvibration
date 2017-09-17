@@ -23,5 +23,5 @@ check:
 	PYTHONPATH=$(CWD) $(ENV)/bin/python -m unittest discover app/
 
 run: $(ENV) prod
-	$(ENV)/bin/gunicorn -b 0.0.0.0:8081 --chdir app api:app --log-level debug
+	$(ENV)/bin/gunicorn -b 0.0.0.0:8082 --chdir app api:app --log-level debug
 

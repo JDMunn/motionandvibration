@@ -14,12 +14,14 @@ def index():
     calls[inspect.stack()[0][3]] += 1
     return render_template('index.html'), 200
 
+
 @app.route("/uploadz", methods=["POST"])
 def uploadz():
     calls[inspect.stack()[0][3]] += 1
     for f in request.files.getlist('input_name'):
-        f.save(os.path.join("~/Desktop", f.filename))
+        f.save(os.path.join("~/motionandvibration/submissions/", f.filename))
     return "", 200
+
 
 @app.route("/healthz", methods=["GET"])
 def healthz():

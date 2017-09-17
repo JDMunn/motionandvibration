@@ -1,4 +1,5 @@
 *.pyc
+.DS_Store
 __pycache__/
 env/
 app/static/node_modules/
