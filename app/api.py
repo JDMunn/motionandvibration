@@ -5,6 +5,9 @@ from flask_dropzone import Dropzone
 import os
 
 app = application = Flask("motionandvibration", static_url_path='')
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static/uploads')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 dropzone = Dropzone(app)
 calls = defaultdict(lambda: 0)
 
@@ -18,8 +21,13 @@ def index():
 @app.route("/uploadz", methods=["POST"])
 def uploadz():
     calls[inspect.stack()[0][3]] += 1
-    for f in request.files.getlist('input_name'):
-        f.save(os.path.join("~/motionandvibration/submissions/", f.filename))
+    f = request.files['file']
+    print("**************")
+    print(f)
+    print(f.filename)
+    f.save(os.path.join(app.config["UPLOAD_FOLDER"],f.filename))
+
+
     return "", 200
 
 
