@@ -2,6 +2,7 @@ var app = new Vue({
     el: '#app',
     data: function() {
         return {
+            backgroundImage: "/media/a_1.jpg",
             alertFileUploaded: false,
             file: {
                 name: null

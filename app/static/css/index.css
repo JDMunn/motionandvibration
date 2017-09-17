@@ -1,3 +1,7 @@
 #content {
     margin-top: 90px;
 }
+
+.background {
+    background-image: url("/media/a_1.jpg");
+}
