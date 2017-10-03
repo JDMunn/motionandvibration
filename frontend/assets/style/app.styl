@@ -1,0 +1,19 @@
+// Specify overrides (theme and/or base variables etc.)
+// See https://vuetifyjs.com/quick-start
+$theme := {
+  primary: #CB045F
+  accent: #00B2B6
+  secondary: #98238D
+  info: #00B2B6
+  warning: #ffb300
+  error: #B71C1C
+  success: #2E7D32
+}
+
+$body-font-family := 'Source Sans Pro', sans-serif
+
+// Import Vuetify styling
+@require '~vuetify/src/stylus/main.styl'
+
+.page
+  @extend .fade-transition
