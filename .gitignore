@@ -4,4 +4,6 @@ __pycache__/
 env/
 ui/node_modules/
 api/app/static/node_modules/
+api/app/static/submissions/
+api/app/static/uploads/
 .idea/

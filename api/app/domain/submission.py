@@ -10,16 +10,6 @@ class SubmissionObject(object, metaclass=abc.ABCMeta):
                                   ' fails, otherwise return self')
 
 
-    @abc.abstractmethod
-    def __save__(self):
-        raise NotImplementedError('must define __save__ to use this base class')
-
-
-    @abc.abstractmethod
-    def __notify__(self):
-        raise NotImplementedError('must define __notify__ to use this base class')
-
-
 class Entry(SubmissionObject):
 
     expected_fields = {
@@ -29,21 +19,30 @@ class Entry(SubmissionObject):
         'description',
         'name',
         'email',
-        'type'
+        'link'
     }
 
-    def __init__(self, data, repo):
+    def __init__(self, data):
         self.data = data
-        self.repo = repo
+
+    def get_id(self):
+        return self.data['name'] + '_' + self.data['title']
+
+    def get_notification(self):
+        return ('New entry recieved!\n' +
+                self.data['name'] + ' submitted a project titled: ' +
+                self.data['title'] + '. The description reads: ' +
+                self.data['description'] + '. The project is for ' +
+                self.data['category'] + ', with a focus on ' +
+                self.data['focus'] + '. Here is a link to their project: ' +
+                self.data['link']
+                )
 
 
     def __validate__(self):
-        if (set(self.data.keys()) <= self.expected_fields):
+        if len(self.expected_fields - set(self.data.keys())) > 0:
             raise ValueError('Missing required fields: ' +
                              str(self.expected_fields -
                                  set(self.data.keys())))
         return self
 
-
-    def __save__(self):
-        self.repo.save(self.data)

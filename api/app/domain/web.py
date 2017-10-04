@@ -17,7 +17,6 @@ class Health(WebObject):
         self.routes = routes
         self.status = status
 
-
     def __tojson__(self):
         return {
             "requestsServed": {
@@ -31,7 +30,6 @@ class Error(WebObject):
 
     def __init__(self, error):
         self.error = error
-
 
     def __tojson__(self):
         return {

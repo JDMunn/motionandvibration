@@ -144,7 +144,7 @@
     methods: {
       submit: function () {
         let app = this
-        this.axios.post('/submission', app.submission)
+        this.axios.post('http://motionandvibration.com/api/submit', app.submission)
           .then(response => {
             console.log(response)
             app.submission.started = false
