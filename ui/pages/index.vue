@@ -96,6 +96,7 @@
                 <p class="text-xs-center"><i>or</i></p>
                 <v-text-field
                   name="submission-link"
+                  v-model="submission.link"
                   label="link to your project (soundcloud, youtube, vimeo, etc.)"
                 ></v-text-field>
                 <v-btn secondary @click.stop="submission.canFinish = true">upload</v-btn>
@@ -137,7 +138,8 @@
           title: null,
           description: null,
           name: null,
-          email: null
+          email: null,
+          link: null
         }
       }
     },
