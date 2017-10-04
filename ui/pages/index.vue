@@ -2,18 +2,16 @@
   <v-layout column justify-center align-center>
     <v-flex xs12 sm10 md10>
       <div>
-        <img src="/a_1.jpg" class="mb-2" width=100%/>
+        <img src="/a_1.jpg" class="mb-2" width=66%/>
       </div>
       <v-card>
         <v-card-title class="headline">
-          the national music and film festival of the amarean isles
+          the national music and film festival of the Amarean Isles
         </v-card-title>
         <v-card-text>
           <h6>theme: Sky Islands</h6>
-          <p>media will be judged by the inhabitants and artists of the amarean isles</p>
+          <p>media will be judged by the inhabitants and artists of the Amarean Isles</p>
           <p>submissions open: 10/11/17</p>
-          <p>submissions closed: ??/??/18</p>
-          <p>winners announced: ??/??/18</p>
           <hr>
           <v-container v-if="submission.started">
             <h6 class="text-xs-center">submission:</h6>
