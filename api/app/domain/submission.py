@@ -26,7 +26,8 @@ class Entry(SubmissionObject):
         self.data = data
 
     def get_id(self):
-        return self.data['name'] + '_' + self.data['title']
+        return (self.data['name'].replace(' ', '') + '_' +
+                self.data['title'].replace(' ', ''))
 
     def get_notification(self):
         return ('New entry recieved!\n' +
