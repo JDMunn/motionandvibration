@@ -1,10 +1,8 @@
 <template>
   <v-layout column justify-center align-center>
     <v-flex xs12 sm10 md10>
-      <div>
-        <img src="/a_1.jpg" class="mb-2" width=66%/>
-      </div>
-      <v-card>
+      <v-card hover>
+        <v-card-media height="300px" src="/a_1.jpg"></v-card-media>
         <v-card-title class="headline">
           the national music and film festival of the Amarean Isles
         </v-card-title>
@@ -33,8 +31,8 @@
                   single-line
                   bottom
                 ></v-select>
-                <v-btn secondary @click.stop="submission.step = 2">Continue</v-btn>
-                <v-btn flat nuxt to="/">Cancel</v-btn>
+                <v-btn secondary @click.stop="submission.step = 2">continue</v-btn>
+                <v-btn flat @click.stop="submission.started = false">cancel</v-btn>
               </v-stepper-content>
               <v-stepper-content v-if="submission.category === 'motion'" step="2">
                 <v-select
@@ -45,7 +43,7 @@
                   bottom
                 ></v-select>
                 <v-btn secondary @click.stop="submission.step = 3">continue</v-btn>
-                <v-btn flat @click.stop="submission.started = false">cancel</v-btn>
+                <v-btn flat @click.stop="submission.step = 1">back</v-btn>
               </v-stepper-content>
               <v-stepper-content v-else step="2">
                 <v-select
@@ -97,7 +95,7 @@
                   v-model="submission.link"
                   label="link to your project (soundcloud, youtube, vimeo, etc.)"
                 ></v-text-field>
-                <v-btn secondary @click.stop="submission.canFinish = true">upload</v-btn>
+                <v-btn info @click.stop="submit(submission)">submit</v-btn>
                 <v-btn flat @click.stop="submission.step = 3">back</v-btn>
               </v-stepper-content>
             </v-stepper>
@@ -109,7 +107,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn v-if="!submission.started && !submission.finished" class="mb-3" info block flat @click.stop="submission.started = true">submit</v-btn>
-          <v-btn v-if="submission.canFinish && !submission.finished" class="mb-3" info block @click.stop="submit(submission)">submit</v-btn>
+          <v-btn class="mb-3" primary block flat nuxt to="/submissions">view submissions</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
