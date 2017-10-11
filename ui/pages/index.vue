@@ -104,7 +104,7 @@
               </v-stepper-content>
               <v-stepper-content step="4">
                 <dropzone id="submission-file"
-                  url=`/api/uploads/${submission.title.replace(/ /g,'_')}`
+                  :url="uploadUrl"
                   v-on:vdropzone-success="submission.canFinish = true; submission.link = `http://motionandvibration.com/api/uploads/${submission.title.replace(/ /g,'_')}`">
                   <!-- Optional parameters if any! -->
                   <input type="hidden" name="token" value="xxx">
@@ -170,6 +170,15 @@
           name: [],
           email: [],
           link: []
+        }
+      }
+    },
+    computed: {
+      uploadUrl: function () {
+        if (this.submission.title) {
+          return `/api/uploads/${this.submission.title.replace(/ /g,'_')}`
+        } else {
+          return ''
         }
       }
     },
