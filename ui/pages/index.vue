@@ -105,7 +105,7 @@
               <v-stepper-content step="4">
                 <dropzone id="submission-file"
                   url="/api/uploads"
-                  v-on:vdropzone-success="submission.canFinish = true; submission.link = `http://motionandvibration.com/static/uploads/${submission.title.replace(/ /g,'_')}`">
+                  v-on:vdropzone-success="submission.canFinish = true; submission.link = `http://motionandvibration.com/api/uploads/${submission.title.replace(/ /g,'_')}`">
                   <!-- Optional parameters if any! -->
                   <input type="hidden" name="token" value="xxx">
                 </dropzone>
