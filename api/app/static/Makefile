@@ -15,7 +15,7 @@ dev: npm clean
 		ln -sv $$PKGE.js $$PKGE.link.js ; \
 	done
 
-prod: npm clean
+prod: clean
 	for PKGE in $(NPM_PACKAGES_JS); do \
 		ln -sv $$PKGE.min.js $$PKGE.link.js ; \
 	done

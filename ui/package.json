@@ -1,7 +1,7 @@
 {
   "name": "motionandvibration",
   "version": "1.0.0",
-  "description": "Submissions website for the national music and film festival of the amarean isles ",
+  "description": "Submissions website for the national music and film festival of the Amarean Isles ",
   "author": "Jared Jolton <jared.jolton@gmail.com>",
   "scripts": {
     "dev": "nuxt",

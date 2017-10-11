@@ -26,34 +26,43 @@
               <v-stepper-content step="1">
                 <v-select
                   :items="['motion', 'vibration']"
+                  :error="this.errors.category.length === 0 ? false : true"
+                  :error-messages="this.errors.category"
+                  @input="validate([{field: 'category', errorMessage: 'please select a category'}], 1)"
                   v-model="submission.category"
                   label="category"
                   single-line
                   bottom
                 ></v-select>
-                <v-btn secondary @click.stop="submission.step = 2">continue</v-btn>
+                <v-btn secondary @click.stop="validate([{field: 'category', errorMessage: 'please select a category'}], 2)">continue</v-btn>
                 <v-btn flat @click.stop="submission.started = false">cancel</v-btn>
               </v-stepper-content>
               <v-stepper-content v-if="submission.category === 'motion'" step="2">
                 <v-select
                   :items="['documentary', 'live action', 'animation', 'experimental']"
+                  :error="this.errors.focus.length === 0 ? false : true"
+                  :error-messages="this.errors.focus"
+                  @input="validate([{field: 'focus', errorMessage: 'please select a focus'}], 2)"
                   v-model="submission.focus"
                   label="focus"
                   single-line
                   bottom
                 ></v-select>
-                <v-btn secondary @click.stop="submission.step = 3">continue</v-btn>
+                <v-btn secondary @click.stop="validate([{field: 'focus', errorMessage: 'please select a focus'}], 3)">continue</v-btn>
                 <v-btn flat @click.stop="submission.step = 1">back</v-btn>
               </v-stepper-content>
               <v-stepper-content v-else step="2">
                 <v-select
                   :items="['acoustic', 'electronic']"
+                  :error="this.errors.focus.length === 0 ? false : true"
+                  :error-messages="this.errors.focus"
+                  @input="validate([{field: 'focus', errorMessage: 'please select a focus'}], 2)"
                   v-model="submission.focus"
                   label="focus"
                   single-line
                   bottom
                 ></v-select>
-                <v-btn secondary @click.stop="submission.step = 3">continue</v-btn>
+                <v-btn secondary @click.stop="validate([{field: 'focus', errorMessage: 'please select a focus'}], 3)">continue</v-btn>
                 <v-btn flat @click.stop="submission.step = 1">back</v-btn>
               </v-stepper-content>
               <v-stepper-content step="3">
@@ -61,30 +70,42 @@
                   name="submission-title"
                   v-model="submission.title"
                   label="project title"
+                  :error="this.errors.title.length === 0 ? false : true"
+                  :error-messages="this.errors.title"
+                  @input="validate([{field: 'title', errorMessage: 'please add a title for your submission'}], 3)"
                 ></v-text-field>
                 <v-text-field
                   name="submission-description"
                   v-model="submission.description"
                   label="project description"
                   multi-line
+                  :error="this.errors.description.length === 0 ? false : true"
+                  :error-messages="this.errors.description"
+                  @input="validate([{field: 'description', errorMessage: 'please add a description of your project'}], 3)"
                 ></v-text-field>
                 <v-text-field
                   name="submission-name"
                   v-model="submission.name"
                   label="your name"
+                  :error="this.errors.name.length === 0 ? false : true"
+                  :error-messages="this.errors.name"
+                  @input="validate([{field: 'name', errorMessage: 'please provide your name, it will be displayed alongside your submission'}], 3)"
                 ></v-text-field>
                 <v-text-field
                   name="submission-email"
                   v-model="submission.email"
                   label="your email"
+                  :error="this.errors.email.length === 0 ? false : true"
+                  :error-messages="this.errors.email"
+                  @input="validate([{field: 'email', errorMessage: 'please provide your email, it will only be used to contact you if you win'}], 3)"
                 ></v-text-field>
-                <v-btn secondary @click.stop="submission.step = 4">continue</v-btn>
+                <v-btn secondary @click.stop="validate([{field: 'title', errorMessage: 'please add a title for your submission'}, {field: 'description', errorMessage: 'please add a description of your project'}, {field: 'name', errorMessage: 'please provide your name, it will be displayed alongside your submission'}, {field: 'email', errorMessage: 'please provide your email, it will only be used to contact you if you win'}], 4)">continue</v-btn>
                 <v-btn flat @click.stop="submission.step = 2">back</v-btn>
               </v-stepper-content>
               <v-stepper-content step="4">
                 <dropzone id="submission-file"
-                  url="/api/submissions"
-                  v-on:vdropzone-success="submission.canFinish = true">
+                  url="/api/uploads"
+                  v-on:vdropzone-success="submission.canFinish = true; submission.link = `http://motionandvibration.com/static/uploads/${submission.title.replace(/ /g,"_")}"
                   <!-- Optional parameters if any! -->
                   <input type="hidden" name="token" value="xxx">
                 </dropzone>
@@ -94,8 +115,11 @@
                   name="submission-link"
                   v-model="submission.link"
                   label="link to your project (soundcloud, youtube, vimeo, etc.)"
+                  :error="this.errors.link.length === 0 ? false : true"
+                  :error-messages="this.errors.link"
+                  @input="validate([{field: 'link', errorMessage: 'please either directly upload your project by dragging in a file above or add a link where it can be accessed'}], 4)"
                 ></v-text-field>
-                <v-btn info @click.stop="submit(submission)">submit</v-btn>
+                <v-btn info @click.stop="validate([{field: 'link', errorMessage: 'please either directly upload your project by dragging in a file above or add a link where it can be accessed'}], 5)">submit</v-btn>
                 <v-btn flat @click.stop="submission.step = 3">back</v-btn>
               </v-stepper-content>
             </v-stepper>
@@ -107,7 +131,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn v-if="!submission.started && !submission.finished" class="mb-3" info block flat @click.stop="submission.started = true">submit</v-btn>
-          <v-btn class="mb-3" primary block flat nuxt to="/submissions">view submissions</v-btn>
+          <v-btn v-if="viewSubmissionsEnabled" class="mb-3" primary block flat nuxt to="/submissions">view submissions</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
@@ -124,6 +148,7 @@
   export default {
     data () {
       return {
+        viewSubmissionsEnabled: false,
         submission: {
           started: false,
           canFinish: false,
@@ -136,13 +161,22 @@
           name: null,
           email: null,
           link: null
+        },
+        errors: {
+          category: [],
+          focus: [],
+          title: [],
+          description: [],
+          name: [],
+          email: [],
+          link: []
         }
       }
     },
     methods: {
       submit: function () {
         let app = this
-        this.axios.post('http://motionandvibration.com/api/submit', app.submission)
+        this.axios.post('http://motionandvibration.com/api/submissions', app.submission)
           .then(response => {
             console.log(response)
             app.submission.started = false
@@ -152,6 +186,26 @@
             app.submission.started = false
             app.submission.finished = true
           })
+      },
+      validate: function (fields, nextStep) {
+        var hasErrors = false
+        fields.forEach(function (field) {
+          if (this.submission[field.field] !== null && this.submission[field.field] !== '') {
+            this.errors[field.field] = []
+          } else {
+            hasErrors = true
+            if (!this.errors[field.field].length) {
+              this.errors[field.field].push(field.errorMessage)
+            }
+          }
+        }, this)
+        if (!hasErrors) {
+          if (nextStep > 4) {
+            this.submit(this.submission)
+          } else {
+            this.submission.step = nextStep
+          }
+        }
       }
     }
   }

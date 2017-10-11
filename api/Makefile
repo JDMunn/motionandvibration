@@ -23,6 +23,5 @@ check:
 	PYTHONPATH=$(CWD) $(ENV)/bin/python -m unittest discover app/
 
 run: $(ENV) prod
-	rm app/static/js/app_bundle.js; browserify app/static/js/app.js > app/static/js/app_bundle.js; \
 	    $(ENV)/bin/gunicorn -b 0.0.0.0:8082 --chdir app api:app --log-level debug
 

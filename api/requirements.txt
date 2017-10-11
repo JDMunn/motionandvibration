@@ -3,3 +3,4 @@ gunicorn
 requests
 flask-dropzone
 twilio
+flask-cors
