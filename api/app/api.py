@@ -41,11 +41,11 @@ def track_request(route):
     CALLS[route] += 1
 
 
-@app.route('/uploads', methods=['POST'])
-def upload():
+@app.route('/uploads/<string:filename>', methods=['POST'])
+def upload(filename):
     track_request(inspect.stack()[0][3])
     f = request.files['file']
-    f.save(path.join(app.config['UPLOAD_FOLDER'], f.filename.replace(" ", "_")))
+    f.save(path.join(app.config['UPLOAD_FOLDER'], filename))
     return '', 204
 
 
