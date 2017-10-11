@@ -103,21 +103,21 @@
                 <v-btn flat @click.stop="submission.step = 2">back</v-btn>
               </v-stepper-content>
               <v-stepper-content step="4">
-                <dropzone id="submission-file"
+                <dropzone v-if="directUploadsEnabled" id="submission-file"
                   :url="uploadUrl"
                   v-on:vdropzone-success="submission.canFinish = true; submission.link = `http://motionandvibration.com/api/uploads/${submission.title.replace(/ /g,'_')}`">
                   <!-- Optional parameters if any! -->
                   <input type="hidden" name="token" value="xxx">
                 </dropzone>
-                <br>
-                <p class="text-xs-center"><i>or</i></p>
+                <br v-if="directUploadsEnabled">
+                <p v-if="directUploadsEnabled" class="text-xs-center"><i>or</i></p>
                 <v-text-field
                   name="submission-link"
                   v-model="submission.link"
                   label="link to your project (soundcloud, youtube, vimeo, etc.)"
                   :error="this.errors.link.length === 0 ? false : true"
                   :error-messages="this.errors.link"
-                  @input="validate([{field: 'link', errorMessage: 'please either directly upload your project by dragging in a file above or add a link where it can be accessed'}], 4)"
+                  @input="validate([{field: 'link', errorMessage: 'please add a link to your project'}], 4)"
                 ></v-text-field>
                 <v-btn info @click.stop="validate([{field: 'link', errorMessage: 'please either directly upload your project by dragging in a file above or add a link where it can be accessed'}], 5)">submit</v-btn>
                 <v-btn flat @click.stop="submission.step = 3">back</v-btn>
@@ -149,6 +149,7 @@
     data () {
       return {
         viewSubmissionsEnabled: false,
+        directUploadsEnabled: false,
         submission: {
           started: false,
           canFinish: false,
@@ -176,7 +177,7 @@
     computed: {
       uploadUrl: function () {
         if (this.submission.title) {
-          return `/api/uploads/${this.submission.title.replace(/ /g,'_')}`
+          return `/api/uploads/${this.submission.title.replace(/ /g, '_')}`
         } else {
           return '/api/uploads/if_you_see_this_something_went_wrong'
         }
