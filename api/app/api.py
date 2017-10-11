@@ -31,7 +31,7 @@ repo = local.Repo(SUBMISSION_FOLDER)
 
 notifier = twilio.Notifier(
     environ['TWILIO_CLIENT_NUMBER'],
-    environ['ALERTS_PHONE_NUMBER'],
+    environ['ALERTS_PHONE_NUMBERS'],
     environ['TWILIO_ACCOUNT_SID'],
     environ['TWILIO_AUTH_TOKEN'])
 
