@@ -178,7 +178,7 @@
         if (this.submission.title) {
           return `/api/uploads/${this.submission.title.replace(/ /g,'_')}`
         } else {
-          return ''
+          return '/api/uploads/if_you_see_this_something_went_wrong'
         }
       }
     },
