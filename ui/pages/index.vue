@@ -137,7 +137,7 @@
       </v-card>
       <v-container>
         <blockquote>
-          Sail the light through your Kundalini - two pronged serpent tongue, stabbing the meat of the world with your lust for oblivion. The infinite is in your soul my friends!
+          As your nerves project into your astral body, find your throat in your ears, grow your garden through the eye of an evergreen spine, each blink a sacral kiss to your creativity.
         </blockquote>
       </v-container>
     </v-flex>
