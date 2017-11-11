@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <link href='https://fonts.googleapis.com/css?family=Oswald:300,400,500,700|Material+Icons' rel="stylesheet">
+        <link rel="stylesheet" href="/css/index.css">
+        <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+        <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+        <link href='/css/material-icons.css' rel="stylesheet">
+        <link href="/node_modules/vuetify/dist/vuetify.min.css" rel="stylesheet">
+        {{ dropzone.load() }}
+        {{ dropzone.style('border: 3px #009FB8; margin: 10%; min-height: 100px;') }}
+        <title>motion & vibration</title>
+        <link rel="icon" type="image/png" href="/media/favicon.png">
+    </head>
+    <body style="">
+        <div id="app">
+            <v-app>
+                <main>
+                    <v-alert success dismissible v-model="alertFileUploaded">
+                        {% raw %}
+                        Successfully uploaded {{ file.name }}! Nice work <i class="em em---1"></i>
+                        {% endraw %}
+                    </v-alert>
+                    <v-parallax height=1000 :src="backgroundImage">
+                        <v-layout column align-center justify-center>
+                            <v-flex md12>
+                                <h3 class="white--text text-xl-center text-lg-center text-md-center text-sm-center text-xs-center">Motion and Vibration</h3>
+                                <h4 class="white--text text-xl-center text-lg-center text-md-center">the national music and film festival of the Amarean Isles</h4>
+                                <h5 class="white--text text-xl-center text-lg-center text-md-center">Sail the light through your Kundalini - two pronged serpent tongue, stabbing the meat of the world with your lust for oblivion. The infinite is in your soul my friends!</h5>
+                                <h6 class="white--text text-xl-center text-lg-center text-md-center">Theme of projects should be <i>Sky Islands</i></h6>
+                                <p class="white--text text-xl-center text-lg-center text-md-center">Submissions open until 06/18/18</p>
+                                <br><br><br><br><br><br><br><br>
+                            </v-flex>
+                        </v-layout>
+                    </v-parallax>
+                    <v-container grid-list-md>
+                        <v-layout row wrap>
+                            <v-flex align-center align-content-center key="1" md3>
+                                <div style="width:100%; margin:0 auto; text-align:center">
+                                    <img :src="anastasiya1" height="100%" width="70%">
+                                </div>
+                            </v-flex>
+                            <v-flex v-if="submissionStep === 'chooseCategory'" align-center align-content-center key="2" md6>
+                                <v-layout row wrap>
+                                    <v-flex md6>
+                                        <v-btn
+                                                @click.native="submitCategory('motion')"
+                                                class="blue-grey white--text"
+                                        >
+                                            Motion
+                                            <v-icon right dark>cloud_upload</v-icon>
+                                        </v-btn>
+                                    </v-flex>
+                                    <v-flex md6>
+                                        <v-btn
+                                                @click.native="submitCategory('vibration')"
+                                                class="blue-grey white--text"
+                                        >
+                                            Vibration
+                                            <v-icon right dark>cloud_upload</v-icon>
+                                        </v-btn>
+                                    </v-flex>
+                                </v-layout>
+                            </v-flex>
+                            <v-flex v-else-if="submissionStep === 'chooseSubCategory'" align-center align-content-center key="2" md6>
+                                <div v-if="category === 'motion'">
+                                    motion
+                                </div>
+                                <div v-else>
+                                    vibration
+                                </div>
+                            </v-flex>
+                            <v-flex v-else align-center align-content-center key="2" md6>
+                                <h5 class="black--text text-xl-center text-lg-center text-md-center text-sm-center text-xs-center">Drag in a file or paste a link below to upload a submission</h5>
+                                <div>
+                                    {{ dropzone.create(action_view='uploadz') }}
+                                </div>
+                                <h6 class="grey--text text-xl-center text-lg-center text-md-center text-sm-center text-xs-center">or</h6>
+                                <v-text-field
+                                    v-model="uploadLink"
+                                    name="uploadLink"
+                                    label="A youtube, vimeo, or soundcloud link to your downloadable video or song."
+                                ></v-text-field>
+                            </v-flex>
+                            <v-flex align-center align-content-center key="3" md3>
+                                <div style="width:100%; margin:0 auto; text-align:center">
+                                    <img :src="anastasiya2" height="100%" width="70%">
+                                </div>
+                            </v-flex>
+                        </v-layout>
+                        <v-layout row wrap>
+                            <v-flex align-center align-content-center md12>
+                                <v-btn
+                                        @click.native="downloadFromUploadLink()"
+                                        class="blue-grey white--text"
+                                >
+                                    Submit
+                                    <v-icon right dark>cloud_upload</v-icon>
+                                </v-btn>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+                    <v-parallax height=400 :src="backgroundImage3">
+                        <br><br><br><br><br><br><br><br>
+                        <v-container>
+                            <v-layout row wrap>
+                                <v-flex align-start align-content-start key="1" md2>
+                                    <h6><a style="text-decoration: none" class="white--text text-xs-left text-sm-left text-md-left text-lg-left text-xl-left" href="https://facebook.com/amareanline">facebook.com/amareanline</a></h6>
+                                </v-flex>
+                                <v-flex align-center align-content-center key="2" md8>
+                                    777
+                                </v-flex>
+                                <v-flex align-end align-content-end key="3" md2>
+                                    <h6><a style="text-decoration: none" class="white--text text-xs-right text-sm-right text-md-right text-lg-right text-xl-right" href="https://instagram.com/amareanline">instagram.com/amareanline</a></h6>
+                                </v-flex>
+                            </v-layout>
+                        </v-container>
+                    </v-parallax>
+                </main>
+            </v-app>
+        </div>
+    </body>
+    <script src="/node_modules/vue/dist/vue.link.js"></script>
+    <script src="/node_modules/vue-resource/dist/vue-resource.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
+    <script src="/js/app_bundle.js"></script>
+</html>
