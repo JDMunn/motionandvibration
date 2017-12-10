@@ -2,14 +2,15 @@
   <v-layout column justify-center align-center>
     <v-flex xs12 sm10 md10>
       <v-card hover>
-        <v-card-media height="300px" src="/a_1.jpg"></v-card-media>
+        <v-card-media height="300px" src="/a_banner.jpg"></v-card-media>
         <v-card-title class="headline">
           the national music and film festival of the Amarean Isles
         </v-card-title>
         <v-card-text>
           <h6>theme: Sky Islands</h6>
           <p>media will be judged by the inhabitants and artists of the Amarean Isles</p>
-          <p>submissions open: 10/11/17</p>
+          <p>submissions closed: 06/06/18</p>
+          <p><a href = "www.amareanline.com"><www.amareanline.com /a></p>
           <hr>
           <v-container v-if="submission.started">
             <h6 class="text-xs-center">submission:</h6>
@@ -25,7 +26,7 @@
               </v-stepper-header>
               <v-stepper-content step="1">
                 <v-select
-                  :items="['motion', 'vibration']"
+                  :items="['motion - film', 'vibration - music']"
                   :error="this.errors.category.length === 0 ? false : true"
                   :error-messages="this.errors.category"
                   @input="validate([{field: 'category', errorMessage: 'please select a category'}], 1)"
